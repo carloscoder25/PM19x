@@ -30,3 +30,12 @@ console.log(cuadrado(4));
 nombre y edad. y retorne una cadena como la siguiente */
 
 //"Hola, me llamo Isay y tengo 37 años ."
+//ejercicio correcto
+const saludoPersonalizado = (nombre, edad) => {
+    return `Hola, me llamo ${nombre} y tengo ${edad} años.`;
+}
+
+// Ejemplo de uso
+console.log(saludoPersonalizado("Isay", 37)); // "Hola, me llamo Isay y tengo 37 años."
+console.log(saludoPersonalizado("María", 28)); // "Hola, me llamo María y tengo 28 años."
+console.log(saludoPersonalizado("Carlos", 42)); // "Hola, me llamo Carlos y tengo 42 años."
