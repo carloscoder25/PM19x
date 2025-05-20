@@ -7,6 +7,9 @@ nombre = "Ana Maria";
 var saludo = "Hola " + nombre + ". Tienes " + edad + "años.";
 
 //muestra en consola el contenido del saludo 
+//ejercicio correcto
+const nombre = 'Juan';
+let edad = 25;
 
 //-------------------------b-----------
 function cuadrado(numero){
