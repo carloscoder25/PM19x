@@ -17,7 +17,13 @@ function cuadrado(numero){
 }
 //console.log();
 //muestra en consola en probando con 3 numeros diferentes
+//ejercicio correcto
+const cuadrado = (numero) => numero * numero;
 
+//purebas
+console.log(cuadrado(2));
+console.log(cuadrado(3));
+console.log(cuadrado(4));
 
 //------------------------c------------------
 /*Crea una arrow function llamada saludoPersonalizado que reciba dos parametros: 
