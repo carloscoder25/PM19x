@@ -46,11 +46,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row',
+    flexDirection:'column',
     backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+//justify arriba hacia abajo
+//align de los lados
   },
   Text:{
     color:'green',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     height:150,
     width:150,
   },
-  azul:{backgroundColor:'blue', flex:3},
-  Blanco:{backgroundColor:'white',flex:1},
-  Gris:{backgroundColor:'grey',flex:2},
+  azul:{backgroundColor:'blue'},
+  Blanco:{backgroundColor:'white'},
+  Gris:{backgroundColor:'grey'},
 });
