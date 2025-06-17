@@ -25,12 +25,12 @@ const Boton =()=>{
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hola nmmundo REACTNATIVE</Text>
-      <Texto></Texto>
+      <Text style={styles.Text}>Hola nmmundo REACTNATIVE</Text>
+      <Texto style={styles.Text}></Texto>
       <Texto></Texto>
       <Texto></Texto>
 
-      <Button title='Presionar'></Button>
+    
 
       <Boton title='Soy un boton'></Boton>
 
@@ -42,8 +42,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  Text:{
+    color:'green',
+    fontSize:27,
   },
 });
