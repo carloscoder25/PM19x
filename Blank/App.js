@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import React,{Children, useState} from 'react';
 
 //componente Propio  Texto 
-const Texto =()=>{
+const Texto =({style})=>{
   const[contenido,setContenido]=useState('Hola mundo')
   const actualizarTexto=()=>{setContenido('Estado modificado')}
   const actualizacion=()=>{setContenido('Hola mundo')}
   return(
-    <Text style={styles.Text} onPress={actualizarTexto}>{ contenido} </Text>
+    <Text style={[styles.Text,style]} onPress={actualizarTexto}>{ contenido} </Text>
 
   ) ;   
   
@@ -26,15 +26,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>Hola nmmundo REACTNATIVE</Text>
-      <Texto style={styles.Text}></Texto>
-      <Texto></Texto>
-      <Texto></Texto>
+      <br></br>
+      <Texto style={styles.azul}></Texto>
+      <br></br>
+      
+      <Texto style={styles.Blanco}></Texto>
+      <br></br>
+      <Texto style={styles.Gris}></Texto>
 
     
 
-      <Boton title='Soy un boton'></Boton>
-
-      <StatusBar style="auto" />
+  
     </View>
   );
 }
@@ -50,4 +52,7 @@ const styles = StyleSheet.create({
     color:'green',
     fontSize:27,
   },
+  azul:{backgroundColor:'blue'},
+  Blanco:{backgroundColor:'white'},
+  Gris:{backgroundColor:'grey'},
 });
