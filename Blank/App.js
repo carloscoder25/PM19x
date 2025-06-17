@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
 //justify arriba hacia abajo
 //align de los lados
   },
