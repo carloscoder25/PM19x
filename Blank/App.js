@@ -26,12 +26,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>Hola nmmundo REACTNATIVE</Text>
-      <br></br>
+      
       <Texto style={styles.azul}></Texto>
-      <br></br>
+    
       
       <Texto style={styles.Blanco}></Texto>
-      <br></br>
+     
       <Texto style={styles.Gris}></Texto>
 
       <StatusBar style="auto"/>
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     backgroundColor: '#000',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
 //justify arriba hacia abajo
 //align de los lados
   },
