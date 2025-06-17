@@ -8,7 +8,7 @@ const Texto =()=>{
   const actualizarTexto=()=>{setContenido('Estado modificado')}
   const actualizacion=()=>{setContenido('Hola mundo')}
   return(
-    <Text onPress={actualizarTexto}>{ contenido} </Text>
+    <Text style={styles.Text} onPress={actualizarTexto}>{ contenido} </Text>
 
   ) ;   
   
