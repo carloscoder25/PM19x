@@ -34,6 +34,8 @@ export default function App() {
       <br></br>
       <Texto style={styles.Gris}></Texto>
 
+      <StatusBar style="auto"/>
+
     
 
   
@@ -44,15 +46,19 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row',
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   Text:{
     color:'green',
     fontSize:27,
+    height:150,
+    width:150,
   },
-  azul:{backgroundColor:'blue'},
-  Blanco:{backgroundColor:'white'},
-  Gris:{backgroundColor:'grey'},
+  azul:{backgroundColor:'blue', flex:3},
+  Blanco:{backgroundColor:'white',flex:1},
+  Gris:{backgroundColor:'grey',flex:2},
 });
