@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import React,{Children, useState} from 'react';
 
+
 //componente Propio  Texto 
 const Texto =({style})=>{
   const[contenido,setContenido]=useState('Hola mundo')
