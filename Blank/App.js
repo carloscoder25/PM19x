@@ -1,66 +1,147 @@
+/* Zona 1: Lugar de las importaciones */  
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import React,{Children, useState} from 'react';
+import {StyleSheet,Text,View,Button,Alert,ScrollView,TouchableOpacity,TouchableHighlight,TouchableNativeFeedback,Pressable,Switch,TouchableWithoutFeedback} from 'react-native';
+import React, { useState } from 'react';
+import { Button as ButtonPaper, Provider as ProveedorPaper } from 'react-native-paper'; 
+import { Button as ButtonElements } from 'react-native-elements';
 
-
-//componente Propio  Texto 
-const Texto =({style})=>{
-  const[contenido,setContenido]=useState('Hola mundo')
-  const actualizarTexto=()=>{setContenido('Estado modificado')}
-  const actualizacion=()=>{setContenido('Hola mundo')}
-  return(
-    <Text style={[styles.Text,style]} onPress={actualizarTexto}>{ contenido} </Text>
-
-  ) ;   
-  
-}
-
-const Boton =()=>{
-  const [contenido,setContenido]=useState('Soy un boton')
-  const actualizarBoton=()=>{setContenido('ya no soy un boton')}
-  return( 
- <Button onPress={actualizarBoton} title={contenido}></Button>
-  );
-}
-
+/* Zona 2: Main */
 export default function App() {
+  const [modoOscuro, setModoOscuro] = useState(false);
+  const alternarModoOscuro = () => setModoOscuro(previo => !previo); 
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.Text}>Hola nmmundo REACTNATIVE</Text>
-      
-      <Texto style={styles.azul}></Texto>
-    
-      
-      <Texto style={styles.Blanco}></Texto>
-     
-      <Texto style={styles.Gris}></Texto>
+    <ProveedorPaper>
+      <ScrollView contentContainerStyle={styles.ScrollContainer}>
+        <View style={[styles.container, { backgroundColor: modoOscuro ? '#111' : '#fff' }]}>
+          <Text style={styles.title}>Modo de pantalla: {modoOscuro ? 'oscuro' : 'claro'}</Text>
+          <Switch value={modoOscuro} onValueChange={alternarModoOscuro} />
+        </View>
 
-      <StatusBar style="auto"/>
+        {/* Botón 1 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>Primer Botón</Text>
+          <Button
+            title="Botón Nativo"
+            color="#007bff"
+            onPress={() => Alert.alert('Botón Nativo Presionado')}
+          />
+        </View>
 
-    
+        {/* Botón 2 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>Segundo Botón</Text>
+          <TouchableOpacity
+            style={[styles.btn, { backgroundColor: '#28a745' }]}
+            onPress={() => Alert.alert('TouchableOpacity')}
+          >
+            <Text style={styles.btnText}>TouchableOpacity</Text>
+          </TouchableOpacity>
+        </View>
 
-  
-    </View>
+        {/* Botón 3 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>Tercer Botón</Text>
+          <TouchableHighlight
+            style={[styles.btn, { backgroundColor: '#ffc107' }]}
+            underlayColor="#e0a800"
+            onPress={() => Alert.alert('Botón 3')}
+          >
+            <Text style={styles.btnText}>TouchableHighlight</Text>
+          </TouchableHighlight>
+        </View>
+
+        {/* Botón 4 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>4. TouchableWithoutFeedback: sin retroalimentación visual</Text>
+          <TouchableWithoutFeedback onPress={() => Alert.alert('¡Sin retroalimentación visual!')}>
+            <View style={[styles.btn, { backgroundColor: '#17a2b8' }]}>
+              <Text style={styles.btnText}>Sin retroalimentación</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+
+        {/* Botón 5 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>5. Pressable: control total sobre estados como presionado</Text>
+          <Pressable
+            style={({ pressed }) => [
+              styles.btn,
+              { backgroundColor: pressed ? '#6c757d' : '#343a40' },
+            ]}
+            onPress={() => Alert.alert('¡Presionaste Pressable!')}
+          >
+            <Text style={styles.btnText}>Pressable</Text>
+          </Pressable>
+        </View>
+
+        {/* Botón 6 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>6. Botón de Paper: diseño moderno y elegante</Text>
+          <ButtonPaper
+            mode="contained"
+            buttonColor="#9c27b0"
+            textColor="#fff"
+            onPress={() => Alert.alert('¡Presionaste el botón de Paper!')}
+            style={styles.paperButton}
+          >
+            Botón de Papel
+          </ButtonPaper>
+        </View>
+
+        {/* Botón 7 */}
+        <View style={styles.section}>
+          <Text style={styles.title}>7. Botón de Elements: con iconos y estilos</Text>
+          <ButtonElements
+            title="Botón Elements"
+            onPress={() => Alert.alert('¡Presionaste el botón de Elements!')}
+            buttonStyle={{
+              backgroundColor: '#ff5722',
+              borderRadius: 10,
+              padding: 10,
+            }}
+            titleStyle={{ fontWeight: 'bold', fontSize: 16 }}
+          />
+        </View>
+
+        <StatusBar style="auto" />
+      </ScrollView>
+    </ProveedorPaper>
   );
 }
 
+/* Zona 3: Estilos */ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'column',
-    backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'space-around',
-//justify arriba hacia abajo
-//align de los lados
+    paddingHorizontal: 16,
+    paddingBottom: 50,
   },
-  Text:{
-    color:'green',
-    fontSize:27,
-    height:150,
-    width:150,
+  title: {
+    fontSize: 16,
+    marginVertical: 6,
+    textAlign: 'center',
+    color: '#000',
   },
-  azul:{backgroundColor:'blue'},
-  Blanco:{backgroundColor:'white'},
-  Gris:{backgroundColor:'grey'},
+  section: {
+    marginVertical: 15,
+    alignItems: 'center',
+    width: '100%',
+  },
+  btn: {
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 5,
+    width: 220,
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  paperButton: {
+    marginTop: 5,
+    width: 220,
+  },
 });
