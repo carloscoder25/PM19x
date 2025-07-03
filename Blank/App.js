@@ -1,147 +1,66 @@
-/* Zona 1: Lugar de las importaciones */  
-import { StatusBar } from 'expo-status-bar';
-import {StyleSheet,Text,View,Button,Alert,ScrollView,TouchableOpacity,TouchableHighlight,TouchableNativeFeedback,Pressable,Switch,TouchableWithoutFeedback} from 'react-native';
-import React, { useState } from 'react';
-import { Button as ButtonPaper, Provider as ProveedorPaper } from 'react-native-paper'; 
-import { Button as ButtonElements } from 'react-native-elements';
+// Importamos react y sus funciones para manejar estados y ejecutar código cuando
+// la app cargue 
+import React, { useEffect, useState } from 'react';
 
-/* Zona 2: Main */
+// Importamos componentes de react native para mostrar la interfaz, listas y estilos
+import { View, Text, FlatList, SectionList, StyleSheet } from 'react-native';
+
+//Creamos el componente principal App y usamos un estado "personas" que está vacío
 export default function App() {
-  const [modoOscuro, setModoOscuro] = useState(false);
-  const alternarModoOscuro = () => setModoOscuro(previo => !previo); 
+  const [personas, setPersonas] = useState([]); //Con setPersona actualizamos y obtenemos el backend
 
+  //Se ejecuta una vez cuando la app carga
+  useEffect(() => {
+    fetch('http://localhost:8000/nombres') //llamamos el endpoint
+      .then(res => res.json()) //si la respuesta llega correcta entonces
+      .then(data => setPersonas(data)) // guardamos los datos en setPersonas
+      .catch(err => console.error(err)); //sino muestra el error
+  }, []);
+
+  // Datos para FlatList: mostramos solo nombres
+  // Usamos map para ir trayendo los datos y transformarlos en un nuevo arreglo
+  const flatData = personas.map((p, index) => ({
+    key: index.toString(), //convierte el número a texto
+    nombre: p.Nombre, //traemos solo el nombre de p que es personas
+    apellido: p.Apellido
+  }));
+
+  // Datos para SectionList: agrupado por Apellido
+  const sectionData = personas.map((p) => ({
+    title: p.Apellido, //aqui traemos de acuerdo a una sección específica, osea apellidos
+    data: [p.Nombre] // traemos también el nombre pero solo como extra
+  }));
+
+  // Renderizamos la interfaz de usuario
   return (
-    <ProveedorPaper>
-      <ScrollView contentContainerStyle={styles.ScrollContainer}>
-        <View style={[styles.container, { backgroundColor: modoOscuro ? '#111' : '#fff' }]}>
-          <Text style={styles.title}>Modo de pantalla: {modoOscuro ? 'oscuro' : 'claro'}</Text>
-          <Switch value={modoOscuro} onValueChange={alternarModoOscuro} />
-        </View>
 
-        {/* Botón 1 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>Primer Botón</Text>
-          <Button
-            title="Botón Nativo"
-            color="#007bff"
-            onPress={() => Alert.alert('Botón Nativo Presionado')}
-          />
-        </View>
+    //Esto es para flatlist
+    <View style={styles.container}>
+      <Text style={styles.title}>FlatList - Solo Nombres</Text>
+      <FlatList 
+        data={flatData} //por cada dato, que se cree un texto
+        renderItem={({ item }) => <Text style={styles.item}>{item.apellido} {item.nombre}</Text>}
+        keyExtractor={item => item.key}
+      />
 
-        {/* Botón 2 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>Segundo Botón</Text>
-          <TouchableOpacity
-            style={[styles.btn, { backgroundColor: '#28a745' }]}
-            onPress={() => Alert.alert('TouchableOpacity')}
-          >
-            <Text style={styles.btnText}>TouchableOpacity</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Botón 3 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>Tercer Botón</Text>
-          <TouchableHighlight
-            style={[styles.btn, { backgroundColor: '#ffc107' }]}
-            underlayColor="#e0a800"
-            onPress={() => Alert.alert('Botón 3')}
-          >
-            <Text style={styles.btnText}>TouchableHighlight</Text>
-          </TouchableHighlight>
-        </View>
-
-        {/* Botón 4 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>4. TouchableWithoutFeedback: sin retroalimentación visual</Text>
-          <TouchableWithoutFeedback onPress={() => Alert.alert('¡Sin retroalimentación visual!')}>
-            <View style={[styles.btn, { backgroundColor: '#17a2b8' }]}>
-              <Text style={styles.btnText}>Sin retroalimentación</Text>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-
-        {/* Botón 5 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>5. Pressable: control total sobre estados como presionado</Text>
-          <Pressable
-            style={({ pressed }) => [
-              styles.btn,
-              { backgroundColor: pressed ? '#6c757d' : '#343a40' },
-            ]}
-            onPress={() => Alert.alert('¡Presionaste Pressable!')}
-          >
-            <Text style={styles.btnText}>Pressable</Text>
-          </Pressable>
-        </View>
-
-        {/* Botón 6 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>6. Botón de Paper: diseño moderno y elegante</Text>
-          <ButtonPaper
-            mode="contained"
-            buttonColor="#9c27b0"
-            textColor="#fff"
-            onPress={() => Alert.alert('¡Presionaste el botón de Paper!')}
-            style={styles.paperButton}
-          >
-            Botón de Papel
-          </ButtonPaper>
-        </View>
-
-        {/* Botón 7 */}
-        <View style={styles.section}>
-          <Text style={styles.title}>7. Botón de Elements: con iconos y estilos</Text>
-          <ButtonElements
-            title="Botón Elements"
-            onPress={() => Alert.alert('¡Presionaste el botón de Elements!')}
-            buttonStyle={{
-              backgroundColor: '#ff5722',
-              borderRadius: 10,
-              padding: 10,
-            }}
-            titleStyle={{ fontWeight: 'bold', fontSize: 16 }}
-          />
-        </View>
-
-        <StatusBar style="auto" />
-      </ScrollView>
-    </ProveedorPaper>
+      {/* Esto es para SectionList */}
+      <Text style={styles.title}>SectionList - Agrupado por Apellido</Text> {/* Muestra el título */}
+      <SectionList
+        sections={sectionData} /* Se pasan los datos a mostrar en la SectionList */
+        keyExtractor={(item, index) => item + index} /* Se identifica de manera unica el item, Andrea0, Carol1 */
+        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>} /* defino cada elemento de una sección (nombres)*/
+        renderSectionHeader={({ section: { title } }) => ( /* defino como mostrar cada seccion (apellidos) */
+          <Text style={styles.header}>{title}</Text> 
+        )}
+      />
+    </View>
   );
 }
 
-/* Zona 3: Estilos */ 
+// Son los estilos que le dare a la interfaz
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 50,
-  },
-  title: {
-    fontSize: 16,
-    marginVertical: 6,
-    textAlign: 'center',
-    color: '#000',
-  },
-  section: {
-    marginVertical: 15,
-    alignItems: 'center',
-    width: '100%',
-  },
-  btn: {
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 5,
-    width: 220,
-  },
-  btnText: {
-    color: '#fff',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  paperButton: {
-    marginTop: 5,
-    width: 220,
-  },
+  container: { flex: 1, paddingTop: 50, paddingHorizontal: 20 },
+  title: { fontSize: 20, fontWeight: 'bold', marginVertical: 10 },
+  item: { padding: 10, fontSize: 16 },
+  header: { fontSize: 18, fontWeight: 'bold', backgroundColor: '#ddd', padding: 5 },
 });
