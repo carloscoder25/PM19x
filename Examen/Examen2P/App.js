@@ -20,7 +20,7 @@ const App = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   // Foursquare API key - consider using environment variables in production
-  const API_KEY = 'fsq3ATzZbmzZQ8LC6mQxF5YfuSvZukuCkV/kPklBEeSLVsE=';
+  const API_KEY = '5PY1A2235REVOA2Z4JYUHEVLDAJDYX5YCWE3RWKYWMKQ513P';
 
   const searchRestaurants = async () => {
     if (!foodType.trim() || !city.trim()) {
